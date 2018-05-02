@@ -187,6 +187,24 @@ char *basecfg(char *cfgfile)
     return c;
 }
 
+char *with_folder(char *cfgfile)
+{
+    char *c = cfgfile;
+    char *next;
+    char *prev;
+    char *prev_prev;
+    while((next = strchr(c, '/')))
+    {
+        c = next+1;
+        prev_prev = prev;
+        prev = next;
+    }
+    c = copy_string(prev_prev+1);
+    next = strchr(prev, '.');
+    if (next) *next = 0;
+    return c;
+}
+
 int alphanum_to_int(char c)
 {
     return (c < 58) ? c - 48 : c-87;
